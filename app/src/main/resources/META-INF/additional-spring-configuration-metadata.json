@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "springdoc.swagger-ui.operationsSorter",
+      "type": "java.lang.String",
+      "description": "Description for springdoc.swagger-ui.operationsSorter."
+    },
+
+    {
+      "name": "upload-images",
+      "type": "java.lang.String",
+      "description": "Description for upload-images."
+    }
+  ] }
