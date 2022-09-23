@@ -1,5 +1,8 @@
 package com.vmi.data.model
 
+/*
+저장과 관련된 플래그를 관리하는 클래스
+ */
 enum class SavedFlag { SAVED, NOT_SAVED, TEMP_SAVED }
 
 
