@@ -81,11 +81,11 @@ class PatientService(
 
         //임시저장
         if (updatePatientImageResultRequestDto.tempSaveFlag) {
-            patientRepository.saveAndFlush(  setEvaluatorTempSaveFlag(patientRepository.findByEvaluationCode(updatePatientImageResultRequestDto.evaluationCode)))
+            patientRepository.saveAndFlush(  setEvaluatorImageTempSaveFlag(patientRepository.findByEvaluationCode(updatePatientImageResultRequestDto.evaluationCode)))
         }
         //저장
         else {
-            patientRepository.saveAndFlush( setEvaluatorSaveFlag(patientRepository.findByEvaluationCode(updatePatientImageResultRequestDto.evaluationCode)))
+            patientRepository.saveAndFlush( setEvaluatorImageSaveFlag(patientRepository.findByEvaluationCode(updatePatientImageResultRequestDto.evaluationCode)))
         }
     }
 
@@ -95,7 +95,7 @@ class PatientService(
     fun updatePatientTotalResult(updatePatientTotalResultRequestDto: UpdatePatientTotalResultRequestDto) {
         updatePatientTotalResultRequestDto.evaluationCode = mappingService.mappingPatientNumberToEvaluationCode(updatePatientTotalResultRequestDto.evaluationCode)
         scoreRepository.saveAndFlush(updatePatientTotalResultRequestDto.updatePatientTotalResultRequestDtoToScoreEntity())
-        patientRepository.saveAndFlush( setEvaluatorSaveFlag(patientRepository.findByEvaluationCode(updatePatientTotalResultRequestDto.evaluationCode)))
+        patientRepository.saveAndFlush( setEvaluatorTotalSaveFlag(patientRepository.findByEvaluationCode(updatePatientTotalResultRequestDto.evaluationCode)))
 
     }
 
@@ -146,16 +146,23 @@ class PatientService(
 
 
     //set flag
-    fun setEvaluatorTempSaveFlag(patientEntity: PatientEntity): PatientEntity {
+    fun setEvaluatorImageTempSaveFlag(patientEntity: PatientEntity): PatientEntity {
         patientEntity.imageEvaluationFlag = SavedFlag.TEMP_SAVED.savedFlagMapper()
         return patientEntity
     }
 
     //set flag
-    fun setEvaluatorSaveFlag(patientEntity: PatientEntity): PatientEntity {
+    fun setEvaluatorImageSaveFlag(patientEntity: PatientEntity): PatientEntity {
         patientEntity.imageEvaluationFlag = SavedFlag.SAVED.savedFlagMapper()
         return patientEntity
     }
+
+    fun setEvaluatorTotalSaveFlag(patientEntity: PatientEntity): PatientEntity {
+        patientEntity.imageEvaluationFlag = SavedFlag.SAVED.savedFlagMapper()
+        patientEntity.totalEvaluationFlag = SavedFlag.SAVED.savedFlagMapper()
+        return patientEntity
+    }
+
 
 
 }
