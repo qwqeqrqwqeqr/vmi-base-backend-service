@@ -97,6 +97,7 @@ data class ScoreEntity(
     @Column(name = "q_30", nullable=true) 
     var score30: Int? = null,
 
+    //단순 총합이 아닌, 이미지 분석을 통해 나오는 종합 결과
     @Column(name = "total", nullable=true) 
     var total: Int?
 )

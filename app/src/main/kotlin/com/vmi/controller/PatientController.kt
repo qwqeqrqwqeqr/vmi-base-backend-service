@@ -12,7 +12,8 @@ import com.vmi.data.dto.patient.image.GetPatientImageResponseDto
 import com.vmi.data.dto.patient.notassigned.GetNotAssignedPatientCountAllResponseDto
 import com.vmi.data.dto.patient.notassigned.GetNotAssignedPatientInfoAllResponseDto
 import com.vmi.data.dto.patient.notassigned.GetNotAssignedPatientInfoResponseDto
-import com.vmi.data.dto.patient.result.UpdatePatientResultRequestDto
+import com.vmi.data.dto.patient.result.UpdatePatientImageResultRequestDto
+import com.vmi.data.dto.patient.result.UpdatePatientTotalResultRequestDto
 import com.vmi.data.dto.patient.score.GetPatientScoreResponseDto
 import com.vmi.data.model.*
 import com.vmi.service.PatientService
@@ -180,18 +181,33 @@ class PatientController(
     }
 
 
-    @ApiOperation("환자 채점 결과 업데이트", produces = MediaTypes.HAL_JSON_VALUE)
+    @ApiOperation("환자 이미지 채점 결과 업데이트", produces = MediaTypes.HAL_JSON_VALUE)
     @ApiResponses(
         ApiResponse(code = 200, message = "200 success"),
         ApiResponse(code = 201, message = "201 success"),
         ApiResponse(code = 400, message = "400 error"),
         ApiResponse(code = 500, message = "500 error")
     )
-    @PutMapping("/result")
-    fun updatePatientResult(@RequestBody updatePatientResultRequestDto: UpdatePatientResultRequestDto): Result<Boolean> {
-        patientService.updatePatientResult(updatePatientResultRequestDto)
+    @PutMapping("/result/image")
+    fun updatePatientImageResult(@RequestBody updatePatientImageResultRequestDto: UpdatePatientImageResultRequestDto): Result<Boolean> {
+        patientService.updatePatientImageResult(updatePatientImageResultRequestDto)
         return Result(
             statusMapper(Status.SUCCESS), resultCodeMapper(ResultCode.OK), "환자 채점 결과를 업데이트합니다.", true
+        )
+    }
+
+    @ApiOperation("환자 종합 점수 업데이트", produces = MediaTypes.HAL_JSON_VALUE)
+    @ApiResponses(
+        ApiResponse(code = 200, message = "200 success"),
+        ApiResponse(code = 201, message = "201 success"),
+        ApiResponse(code = 400, message = "400 error"),
+        ApiResponse(code = 500, message = "500 error")
+    )
+    @PutMapping("/result/total")
+    fun updatePatientTotalResult(@RequestBody updatePatientTotalResultRequestDto: UpdatePatientTotalResultRequestDto): Result<Boolean> {
+        patientService.updatePatientTotalResult(updatePatientTotalResultRequestDto)
+        return Result(
+            statusMapper(Status.SUCCESS), resultCodeMapper(ResultCode.OK), "환자 종합 점수를 업데이트합니다.", true
         )
     }
 

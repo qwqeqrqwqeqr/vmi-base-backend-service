@@ -9,8 +9,7 @@ import com.vmi.data.dto.patient.image.GetPatientImageResponseDto
 import com.vmi.data.dto.patient.image.questionCropImageDtoAndAnswerImageDtoToGetPatientCropImageResponseDto
 import com.vmi.data.dto.patient.image.questionImageDtoAndAnswerImageDtoToGetPatientImageResponseDto
 import com.vmi.data.dto.patient.notassigned.*
-import com.vmi.data.dto.patient.result.UpdatePatientResultRequestDto
-import com.vmi.data.dto.patient.result.updatePatientResultRequestDtoToScoreEntity
+import com.vmi.data.dto.patient.result.*
 import com.vmi.data.dto.patient.score.GetPatientScoreResponseDto
 import com.vmi.data.dto.patient.score.scoreEntityToGetPatientScoreResponseDto
 import com.vmi.data.entity.AssignEntity
@@ -75,25 +74,30 @@ class PatientService(
     fun getPatientScore(evaluationCode: Int): GetPatientScoreResponseDto =
         patientRepository.findByEvaluationCode(mappingService.mappingPatientNumberToEvaluationCode(evaluationCode)).scoreEntityToGetPatientScoreResponseDto()
 
-    //환자의 채점 결과 반영하기
-    fun updatePatientResult(updatePatientResultRequestDto: UpdatePatientResultRequestDto) {
-        updatePatientResultRequestDto.evaluationCode = mappingService.mappingPatientNumberToEvaluationCode(updatePatientResultRequestDto.evaluationCode)
-        scoreRepository.saveAndFlush(updatePatientResultRequestDto.updatePatientResultRequestDtoToScoreEntity())
+    //환자의 채점 결과 반영하기 (이미지 점수 계산)
+    fun updatePatientImageResult(updatePatientImageResultRequestDto: UpdatePatientImageResultRequestDto) {
+        updatePatientImageResultRequestDto.evaluationCode = mappingService.mappingPatientNumberToEvaluationCode(updatePatientImageResultRequestDto.evaluationCode)
+        scoreRepository.saveAndFlush(updatePatientImageResultRequestDto.updatePatientResultImageRequestDtoToScoreEntity())
 
         //임시저장
-        if (updatePatientResultRequestDto.tempSaveFlag) {
-            val entity =
-                setEvaluatorTempSaveFlag(patientRepository.findByEvaluationCode(updatePatientResultRequestDto.evaluationCode))
-            patientRepository.saveAndFlush(entity)
+        if (updatePatientImageResultRequestDto.tempSaveFlag) {
+            patientRepository.saveAndFlush(  setEvaluatorTempSaveFlag(patientRepository.findByEvaluationCode(updatePatientImageResultRequestDto.evaluationCode)))
         }
         //저장
         else {
-            val entity =
-                setEvaluatorSaveFlag(patientRepository.findByEvaluationCode(updatePatientResultRequestDto.evaluationCode))
-            patientRepository.saveAndFlush(entity)
+            patientRepository.saveAndFlush( setEvaluatorSaveFlag(patientRepository.findByEvaluationCode(updatePatientImageResultRequestDto.evaluationCode)))
         }
     }
 
+
+
+    //환자의 채점 결과 반영하기 (총점 계산)
+    fun updatePatientTotalResult(updatePatientTotalResultRequestDto: UpdatePatientTotalResultRequestDto) {
+        updatePatientTotalResultRequestDto.evaluationCode = mappingService.mappingPatientNumberToEvaluationCode(updatePatientTotalResultRequestDto.evaluationCode)
+        scoreRepository.saveAndFlush(updatePatientTotalResultRequestDto.updatePatientTotalResultRequestDtoToScoreEntity())
+        patientRepository.saveAndFlush( setEvaluatorSaveFlag(patientRepository.findByEvaluationCode(updatePatientTotalResultRequestDto.evaluationCode)))
+
+    }
 
     //평가자가 할당이 되어 있지 않은 환자 리스트 출력
     fun getNotAssignedPatientInfoAll(): GetNotAssignedPatientInfoAllResponseDto =
