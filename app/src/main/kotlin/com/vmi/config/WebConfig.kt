@@ -17,7 +17,7 @@ class WebConfig : WebMvcConfigurer {
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
         super.addResourceHandlers(registry)
         registry.addResourceHandler("/Image/**")
-        .addResourceLocations("file:///Users/sangtaek/Desktop/vmi/")
+
     }
 
     override fun addCorsMappings(registry: CorsRegistry) {

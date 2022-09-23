@@ -14,7 +14,8 @@ fun List<PatientEntity>.patientEntityListToGetEvaluatorMarkPatientInfoAllRespons
         EvaluatorMarkPatientDto(
             mappingService.mappingPatientEvaluationCodeToNumber( patientEntity.evaluationCode),
             patientEntity.scoreEntity?.total ?: 0,
-            patientEntity.evaluationFlag
+            patientEntity.imageEvaluationFlag,
+            patientEntity.totalEvaluationFlag
         )
     }.toList())
 

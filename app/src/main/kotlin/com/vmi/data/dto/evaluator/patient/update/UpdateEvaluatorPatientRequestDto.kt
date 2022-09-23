@@ -3,6 +3,8 @@ package com.vmi.data.dto.evaluator.patient.update
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.vmi.data.entity.AssignEntity
 import com.vmi.data.entity.PatientEntity
+import com.vmi.repository.EvaluatorRepository
+import com.vmi.service.EvaluatorService
 import com.vmi.service.MappingService
 
 
@@ -17,7 +19,8 @@ data class UpdateEvaluatorPatientRequestDto(
 fun UpdateEvaluatorPatientRequestDto.addEvaluatorPatientRequestDtoToAssignEntityList(
     assignEntry: List<AssignEntity>,
     patientEntry: List<PatientEntity>,
-    mappingService: MappingService
+    mappingService: MappingService,
+    evaluatorRepository: EvaluatorRepository
 ): List<AssignEntity> {
     val list: MutableList<AssignEntity> = emptyList<AssignEntity>().toMutableList()
     val rangeHashSet: HashSet<Int> = HashSet()

@@ -14,6 +14,7 @@ data class AssignEntity(
     @Column(name= "e_num")
     var evaluatorNumber: String?,
 
-    )
+
+)
 
 

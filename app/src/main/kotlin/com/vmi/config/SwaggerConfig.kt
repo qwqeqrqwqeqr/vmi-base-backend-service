@@ -41,7 +41,7 @@ class SwaggerConfig {
     fun apiInfo(): ApiInfo =
         ApiInfoBuilder()
             .title("vmi")
-            .version("1.0.2")
+            .version("1.0.3")
             .build()
 
 

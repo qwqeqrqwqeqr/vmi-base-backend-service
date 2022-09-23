@@ -15,7 +15,8 @@ fun Page<PatientEntity>.patientEntityToGetEvaluatorManagePatientInfoResponseDto(
         GetEvaluatorManagePatientInfoResponseDto(
             EvaluatorManagePatientDto(
                 mappingService.mappingPatientEvaluationCodeToNumber(it.evaluationCode),
-                it.evaluationFlag
+                it.imageEvaluationFlag,
+                it.totalEvaluationFlag
             )
         )
     }

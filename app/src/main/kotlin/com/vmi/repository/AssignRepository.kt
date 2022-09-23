@@ -8,8 +8,6 @@ interface AssignRepository: JpaRepository<AssignEntity,Int> {
     //평가자 코드 맞는 환자 리스트 불러오기
     fun findAllByEvaluatorNumber(evaluatorNumber: String): List<AssignEntity>
 
-    fun findAllByEvaluatorNumberIsNotNull() : List<AssignEntity>
-    fun findAllByEvaluatorNumberIsNull() : List<AssignEntity>
-
-    //환자 담당 평가자 업데이트하기
+    fun findAllByEvaluatorNumberIsNotNull(): List<AssignEntity>
+    fun findAllByEvaluatorNumberIsNull(): List<AssignEntity>
 }

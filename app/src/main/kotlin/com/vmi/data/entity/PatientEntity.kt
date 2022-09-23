@@ -41,8 +41,12 @@ data class PatientEntity(
     @Column(name= "pres_code")
     var prescriptionCode: String,
 
-    @Column(name= "fin")
-    var evaluationFlag: Int,
+    @Column(name= "image_fin")
+    var imageEvaluationFlag: Int,
+
+    @Column(name= "total_fin")
+    var totalEvaluationFlag: Int,
+
 
 
     @OneToOne

@@ -8,14 +8,14 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface PatientRepository : JpaRepository<PatientEntity, String> {
 
     //평가코드와 매핑되는 환자 불러오기
-    fun findByEvaluationCodeAndEvaluationFlagEquals(evaluationCode: Int, evaluationFlag: Int,pageable: Pageable) : List<PatientEntity>
+    fun findByEvaluationCodeAndImageEvaluationFlagEquals(evaluationCode: Int, imageEvaluationFlag: Int,pageable: Pageable) : List<PatientEntity>
 
 
-    fun findByEvaluationCodeAndEvaluationFlagEquals(evaluationCode: Int, evaluationFlag: Int) : PatientEntity
+    fun findByEvaluationCodeAndImageEvaluationFlagEquals(evaluationCode: Int, imageEvaluationFlag: Int) : PatientEntity
 
 
 
-    fun findByEvaluationCodeAndEvaluationFlagNot(evaluationCode: Int, evaluationFlag: Int) : PatientEntity
+    fun findByEvaluationCodeAndImageEvaluationFlagNot(evaluationCode: Int, imageEvaluationFlag: Int) : PatientEntity
 
 
     fun findByEvaluationCode(evaluationCode: Int) : PatientEntity

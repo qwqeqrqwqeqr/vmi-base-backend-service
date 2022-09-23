@@ -10,4 +10,4 @@ data class GetPatientInfoResponseDto(
 )
 
 fun Page<PatientEntity>.patientEntityToGetPatientInfoResponseDto(mappingService: MappingService): Page<GetPatientInfoResponseDto> =
-    this.map { GetPatientInfoResponseDto(PatientInfoDto(mappingService.mappingPatientEvaluationCodeToNumber(it.evaluationCode),it.registrationNumber,it.name,it.evaluationFlag)) }
+    this.map { GetPatientInfoResponseDto(PatientInfoDto(mappingService.mappingPatientEvaluationCodeToNumber(it.evaluationCode),it.registrationNumber,it.name,it.imageEvaluationFlag,it.totalEvaluationFlag)) }

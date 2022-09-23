@@ -143,13 +143,13 @@ class PatientService(
 
     //set flag
     fun setEvaluatorTempSaveFlag(patientEntity: PatientEntity): PatientEntity {
-        patientEntity.evaluationFlag = SavedFlag.TEMP_SAVED.savedFlagMapper()
+        patientEntity.imageEvaluationFlag = SavedFlag.TEMP_SAVED.savedFlagMapper()
         return patientEntity
     }
 
     //set flag
     fun setEvaluatorSaveFlag(patientEntity: PatientEntity): PatientEntity {
-        patientEntity.evaluationFlag = SavedFlag.SAVED.savedFlagMapper()
+        patientEntity.imageEvaluationFlag = SavedFlag.SAVED.savedFlagMapper()
         return patientEntity
     }
 

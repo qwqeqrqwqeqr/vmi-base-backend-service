@@ -12,5 +12,5 @@ data class GetEvaluatorManagePatientInfoAllResponseDto (
 
 fun List<PatientEntity>.patientEntityListToGetEvaluatorManagePatientInfoAllResponseDto(mappingService: MappingService): GetEvaluatorManagePatientInfoAllResponseDto =
     GetEvaluatorManagePatientInfoAllResponseDto(this.map { patientEntity ->
-        EvaluatorManagePatientDto(mappingService.mappingPatientEvaluationCodeToNumber(patientEntity.evaluationCode) ,patientEntity.evaluationFlag)
+        EvaluatorManagePatientDto(mappingService.mappingPatientEvaluationCodeToNumber(patientEntity.evaluationCode) ,patientEntity.imageEvaluationFlag,patientEntity.totalEvaluationFlag)
     }.toList())

@@ -5,6 +5,7 @@ data class PatientInfoDto(
     val evaluationCode : Int,
     var registrationNumber: String,
     var name: String,
-    var evaluationFlag: Int
+    var imageEvaluationFlag: Int,
+    var totalEvaluationFlag: Int
 )
 

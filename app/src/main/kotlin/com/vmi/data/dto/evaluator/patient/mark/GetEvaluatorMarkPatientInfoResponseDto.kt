@@ -18,7 +18,8 @@ fun Page<PatientEntity>.patientEntityToGetEvaluatorMarkPatientInfoResponseDto(ma
                 mappingService.mappingPatientEvaluationCodeToNumber(it.evaluationCode)
                 ,
                 it.scoreEntity?.total ?: 0,
-                it.evaluationFlag
+                it.imageEvaluationFlag,
+                it.totalEvaluationFlag
             )
         )
     }

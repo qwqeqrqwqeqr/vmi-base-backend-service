@@ -25,7 +25,9 @@ data class GetPatientInfoDetailResponseDto(
 
     var prescriptionCode: String,
 
-    var evaluationFlag: Int
+    var imageEvaluationFlag: Int,
+
+    var totalEvaluationFlag : Int
 
 )
 
@@ -41,5 +43,6 @@ fun PatientEntity.patientEntityToGetPatientInfoDetailResponseDto(): GetPatientIn
         diseaseCode,
         diseaseName,
         prescriptionCode,
-        evaluationFlag
+        imageEvaluationFlag,
+        totalEvaluationFlag
     )

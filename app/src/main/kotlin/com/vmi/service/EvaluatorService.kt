@@ -131,7 +131,7 @@ class EvaluatorService(
     fun addEvaluatorMarkPatient(updateEvaluatorPatientRequestDto: UpdateEvaluatorPatientRequestDto): AddEvaluatorPatientResponseDto {
         val assignEntry=assignRepository.findAllByEvaluatorNumber(updateEvaluatorPatientRequestDto.evaluatorNumber) //중복된것은 포함하지 않기 위함
         val patientEntry = patientRepository.findAll()
-        assignRepository.saveAllAndFlush(updateEvaluatorPatientRequestDto.addEvaluatorPatientRequestDtoToAssignEntityList(assignEntry,patientEntry,mappingService))
+        assignRepository.saveAllAndFlush(updateEvaluatorPatientRequestDto.addEvaluatorPatientRequestDtoToAssignEntityList(assignEntry,patientEntry,mappingService,evaluatorRepository))
             .also {
                 return it.assignEntityListToAddEvaluatorPatientResponseDto()
             }
@@ -157,7 +157,7 @@ class EvaluatorService(
     fun getEvaluatorCheckedPatientInfoAll(evaluatorNumber: String): GetEvaluatorCheckedPatientInfoAllResponseDto =
         assignRepository.findAllByEvaluatorNumber(evaluatorNumber).map {
             patientRepository.findByEvaluationCode(it.evaluationCode)
-        }.filter { it.evaluationFlag == SavedFlag.SAVED.savedFlagMapper() }.toList().patientEntityListToGetEvaluatorCheckedPatientInfoAllResponseDto(mappingService)
+        }.filter { it.imageEvaluationFlag == SavedFlag.SAVED.savedFlagMapper() }.toList().patientEntityListToGetEvaluatorCheckedPatientInfoAllResponseDto(mappingService)
 
 
     //평가자가 담당하고 있는 환자 중에서 채점이 되어있는 환자 리스트 출력 (페이징)
@@ -167,7 +167,7 @@ class EvaluatorService(
     ): Page<GetEvaluatorCheckedPatientInfoResponseDto>? {
         val patientList = assignRepository.findAllByEvaluatorNumber(evaluatorNumber).map {
             patientRepository.findByEvaluationCode(it.evaluationCode)
-        }.filter { it.evaluationFlag == SavedFlag.SAVED.savedFlagMapper() }
+        }.filter { it.imageEvaluationFlag == SavedFlag.SAVED.savedFlagMapper() }
         val start = pageable.offset.toInt()
         val end: Int = (start + pageable.pageSize).coerceAtMost(patientList.size)
         val page: Page<PatientEntity> =
@@ -181,7 +181,7 @@ class EvaluatorService(
     fun getEvaluatorCheckedPatientCountAll(evaluatorNumber: String): GetEvaluatorCheckedPatientCountAllResponseDto =
         assignRepository.findAllByEvaluatorNumber(evaluatorNumber).map {
             patientRepository.findByEvaluationCode(it.evaluationCode)
-        }.filter { it.evaluationFlag == SavedFlag.SAVED.savedFlagMapper() }
+        }.filter { it.imageEvaluationFlag == SavedFlag.SAVED.savedFlagMapper() }
             .toList().size.patientEntityListSizeToGetEvaluatorCheckedPatientCountAllResponseDto()
 
 
@@ -189,7 +189,7 @@ class EvaluatorService(
     fun getEvaluatorNotCheckedPatientInfoAll(evaluatorNumber: String): GetEvaluatorNotCheckedPatientInfoAllResponseDto =
         assignRepository.findAllByEvaluatorNumber(evaluatorNumber).map {
             patientRepository.findByEvaluationCode(it.evaluationCode)
-        }.filter { it.evaluationFlag != SavedFlag.SAVED.savedFlagMapper() }.toList()
+        }.filter { it.imageEvaluationFlag != SavedFlag.SAVED.savedFlagMapper() }.toList()
             .patientEntityListToGetEvaluatorNotCheckedPatientInfoAllResponseDto(mappingService)
 
 
@@ -200,7 +200,7 @@ class EvaluatorService(
     ): Page<GetEvaluatorNotCheckedPatientInfoResponseDto> {
         val patientList = assignRepository.findAllByEvaluatorNumber(evaluatorNumber).map {
             patientRepository.findByEvaluationCode(it.evaluationCode)
-        }.filter { it.evaluationFlag != SavedFlag.SAVED.savedFlagMapper() }
+        }.filter { it.imageEvaluationFlag != SavedFlag.SAVED.savedFlagMapper() }
         val start = pageable.offset.toInt()
         val end: Int = (start + pageable.pageSize).coerceAtMost(patientList.size)
         val page: Page<PatientEntity> =
@@ -213,7 +213,7 @@ class EvaluatorService(
     fun getEvaluatorNotCheckedPatientCountAll(evaluatorNumber: String): GetEvaluatorNotCheckedPatientCountAllResponseDto =
         assignRepository.findAllByEvaluatorNumber(evaluatorNumber).map {
             patientRepository.findByEvaluationCode(it.evaluationCode)
-        }.filter { it.evaluationFlag != SavedFlag.SAVED.savedFlagMapper() }
+        }.filter { it.imageEvaluationFlag != SavedFlag.SAVED.savedFlagMapper() }
             .toList().size.patientEntityListSizeToGetEvaluatorNotCheckedPatientCountAllResponseDto()
 
 

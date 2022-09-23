@@ -10,7 +10,7 @@ data class GetPatientInfoAllResponseDto(
 fun List<PatientEntity>.patientEntityListToGetPatientInfoAllResponseDto(mappingService: MappingService): GetPatientInfoAllResponseDto =
     GetPatientInfoAllResponseDto(
         this.map {
-            PatientInfoDto(mappingService.mappingPatientEvaluationCodeToNumber(it.evaluationCode), it.registrationNumber, it.name, it.evaluationFlag)
+            PatientInfoDto(mappingService.mappingPatientEvaluationCodeToNumber(it.evaluationCode), it.registrationNumber, it.name, it.imageEvaluationFlag,it.totalEvaluationFlag)
         }.toList()
     )
 
