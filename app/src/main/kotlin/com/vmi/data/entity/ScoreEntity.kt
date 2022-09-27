@@ -99,5 +99,5 @@ data class ScoreEntity(
 
     //단순 총합이 아닌, 이미지 분석을 통해 나오는 종합 결과
     @Column(name = "total", nullable=true) 
-    var total: Int?
+    var total: Int? = null
 )

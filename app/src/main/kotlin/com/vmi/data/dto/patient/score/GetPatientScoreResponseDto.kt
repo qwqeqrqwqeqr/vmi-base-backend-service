@@ -30,6 +30,7 @@ data class GetPatientScoreResponseDto(
     var score28: Int?,
     var score29: Int?,
     var score30: Int?,
+    var total: Int?
 )
 
 
@@ -62,4 +63,5 @@ fun PatientEntity?.scoreEntityToGetPatientScoreResponseDto(): GetPatientScoreRes
         score28 = this?.scoreEntity?.score28,
         score29 = this?.scoreEntity?.score29,
         score30 = this?.scoreEntity?.score30,
+        total = this?.scoreEntity?.total
     )
