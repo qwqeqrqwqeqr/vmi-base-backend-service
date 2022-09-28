@@ -317,6 +317,6 @@ class PatientController(
             resultCodeMapper(ResultCode.OK),
             "평가자가 할당이 되어 있는 환자들을 불러옵니다.",
             patientService.getAssignedPatientCountAll()
-        )
+          )
     }
 }
