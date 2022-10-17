@@ -10,7 +10,6 @@ import javax.persistence.Table
 @Table(name = "ans_vmi_dir")
 data class AnswerEntity(
 
-    //TODO  Int Type 변경
 
     @Id
     @Column(name = "eval_code")

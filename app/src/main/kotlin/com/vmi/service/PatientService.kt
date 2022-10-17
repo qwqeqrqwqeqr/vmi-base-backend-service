@@ -63,6 +63,7 @@ class PatientService(
             answerRepository.findByEvaluationCode(mappingService.mappingPatientNumberToEvaluationCode(evaluationCode))
         )
 
+
     //환자의 크롭된 채점 이미지와 정답 이미지 불러오기
     fun getPatientCropImage(evaluationCode: Int): GetPatientCropImageResponseDto =
         questionCropImageDtoAndAnswerImageDtoToGetPatientCropImageResponseDto(
